@@ -8,7 +8,7 @@ return function ($phone, $code): bool {
         $secret = Framework::execute(function (
             Config $config
         ): string {
-            return (string)$config->get('sms.ebcms_secret@ebcms.ucenter', '');
+            return (string)$config->get('sms.ebcms_secret@ebcms.ucenter-web', '');
         });
         $url = 'https://www.ebcms.com/plugin/smsapi/client/send';
         $requestBody = http_build_query([
