@@ -71,6 +71,6 @@ class Edit extends Common
             'id' => $user['id'],
         ]);
 
-        return $this->success('操作成功！', 'javascript:history.go(-2)');
+        return $this->success('操作成功！');
     }
 }
