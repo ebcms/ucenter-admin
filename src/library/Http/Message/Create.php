@@ -25,7 +25,9 @@ class Create extends Common
         $form->addItem(
             (new Row())->addCol(
                 (new Col('col-md-9'))->addItem(
-                    new Input('用户ID', 'user_id', $request->get('user_id')),
+                    new Input('用户ID', 'user_id', $request->get('user_id'), [
+                        'required' => true,
+                    ]),
                     new Input('标题', 'title'),
                     new Summernote('内容', 'body', '', $router->build('/ebcms/admin/upload'))
                 )

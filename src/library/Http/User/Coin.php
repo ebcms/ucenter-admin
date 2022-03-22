@@ -24,8 +24,8 @@ class Coin extends Common
             (new Row())->addCol(
                 (new Col('col-md-3'))->addItem(
                     (new Input('用户ID', 'user_id', $request->get('user_id', 0))),
-                    (new Input('金币数量', 'num', 0, ['type' => 'number'])),
-                    (new Textarea('原因', 'tips'))
+                    (new Input('金币数量', 'num', '', ['type' => 'number'])),
+                    (new Textarea('原因', 'tips', '金币数量变更：{$num}，若有疑问，请联系我们~'))
                 ),
                 (new Col('col-md-9'))->addItem()
             )
@@ -50,7 +50,6 @@ class Coin extends Common
             return $this->error('数量不足！');
         }
 
-
         if ($coin > 0) {
             $db->update('ebcms_user_user', [
                 'coin[+]' => $coin,
@@ -64,6 +63,13 @@ class Coin extends Common
                 'id' => $user['id'],
             ]);
         }
+
+        $db->insert('ebcms_user_message', [
+            'user_id' => $user['id'],
+            'title' => '金币数量变更通知',
+            'body' => str_replace('{$num}', $coin > 0 ? '+' . $coin : $coin, $request->post('tips')),
+            'send_time' => time(),
+        ]);
 
         return $this->success('操作成功！');
     }
