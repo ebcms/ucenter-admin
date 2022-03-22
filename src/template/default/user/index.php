@@ -1,7 +1,6 @@
 {include common/header@ebcms/admin}
-<div class="container-xxl">
-    <?php $cur = 'user'; ?>
-    {include common/nav@ebcms/ucenter-admin}
+<div class="container">
+    <div class="my-4 h1">用户中心</div>
     <div class="my-4">
         <form id="form_filter" class="row row-cols-auto gy-2 gx-3 align-items-center mb-3" action="{echo $router->build('/ebcms/ucenter-admin/user/index')}" method="GET">
 
@@ -19,9 +18,9 @@
                 <label class="visually-hidden">状态</label>
                 <select class="form-select" name="state" onchange="document.getElementById('form_filter').submit();">
                     <option {if $request->get('state')=='' }selected{/if} value="">全部</option>
+                    <option {if $request->get('state')=='0' }selected{/if} value="0">待审核</option>
                     <option {if $request->get('state')=='1' }selected{/if} value="1">正常</option>
-                    <option {if $request->get('state')=='2' }selected{/if} value="2">黑名单</option>
-                    <option {if $request->get('state')=='99' }selected{/if} value="99">待审核</option>
+                    <option {if $request->get('state')=='99' }selected{/if} value="99">黑名单</option>
                 </select>
             </div>
 
@@ -39,6 +38,7 @@
                     <th>昵称</th>
                     <th>电话</th>
                     <th>金币</th>
+                    <th>积分</th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -50,11 +50,12 @@
                     <td>{$v.nickname}</td>
                     <td>{$v.phone}</td>
                     <td>{$v.coin}</td>
+                    <td>{$v.score}</td>
                     <td>{$v.state}</td>
                     <td>
                         <a href="{echo $router->build('/ebcms/ucenter-admin/user/edit', ['id'=>$v['id']])}">编辑</a>
-                        <a href="{echo $router->build('/ebcms/ucenter-admin/log/index', ['user_id'=>$v['id']])}">日志</a>
-                        <a href="{echo $router->build('/ebcms/ucenter-admin/user/coin', ['user_id'=>$v['id']])}">金币</a>
+                        <a href="{echo $router->build('/ebcms/ucenter-admin/user/coin', ['user_id'=>$v['id']])}">发放金币</a>
+                        <a href="{echo $router->build('/ebcms/ucenter-admin/message/create', ['user_id'=>$v['id']])}">发送消息</a>
                     </td>
                 </tr>
                 {/foreach}

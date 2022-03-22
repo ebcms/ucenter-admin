@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ebcms\UcenterAdmin\Http\Log;
+namespace App\Ebcms\UcenterAdmin\Http\Message;
 
 use App\Ebcms\Admin\Http\Common;
 use DigPHP\Database\Db;
@@ -19,13 +19,13 @@ class Index extends Common
         Pagination $pagination
     ) {
         $where = [];
-        if ($request->get('user_id')) {
+        if (strlen($request->get('user_id', ''))) {
             $where['user_id'] = $request->get('user_id');
         }
-        if ($request->get('type')) {
-            $where['type'] = $request->get('type');
+        if (strlen($request->get('is_read', ''))) {
+            $where['is_read'] = $request->get('is_read');
         }
-        $total = $db->count('ebcms_user_log', $where);
+        $total = $db->count('ebcms_user_message', $where);
 
         $page = $request->get('page') ?: 1;
         $pagenum = $request->get('pagenum') ?: 20;
@@ -34,8 +34,15 @@ class Index extends Common
             'id' => 'DESC',
         ];
 
-        return $template->renderFromFile('log/index@ebcms/ucenter-admin', [
-            'logs' => $db->select('ebcms_user_log', '*', $where),
+        $messages = $db->select('ebcms_user_message', '*', $where);
+        foreach ($messages as &$value) {
+            $value['user'] = $db->get('ebcms_user_user', '*', [
+                'id' => $value['user_id']
+            ]);
+        }
+
+        return $template->renderFromFile('message/index@ebcms/ucenter-admin', [
+            'messages' => $messages,
             'total' => $total,
             'pages' => $pagination->render($page, $total, $pagenum),
         ]);

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Ebcms\UcenterAdmin\Http\User;
 
 use App\Ebcms\Admin\Http\Common;
-use App\Ebcms\UcenterAdmin\Model\Log;
 use DigPHP\Database\Db;
 use DigPHP\Form\Builder;
 use DigPHP\Form\Component\Col;
@@ -36,7 +35,6 @@ class Coin extends Common
 
     public function post(
         Request $request,
-        Log $logModel,
         Db $db
     ) {
         $coin = $request->post('num', 0);
@@ -66,10 +64,6 @@ class Coin extends Common
                 'id' => $user['id'],
             ]);
         }
-        $logModel->record($user['id'], 'coin', [
-            'coin' => $coin,
-            'tips' => $request->post('tips'),
-        ]);
 
         return $this->success('操作成功！');
     }

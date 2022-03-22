@@ -36,9 +36,9 @@ class Edit extends Common
                     (new Cover('头像', 'avatar', $user['avatar'], $router->build('/ebcms/admin/upload'))),
                     (new Input('电话号码', 'phone', $user['phone'])),
                     (new Radio('状态', 'state', $user['state'], [
+                        '0' => '待审核',
                         '1' => '正常',
-                        '2' => '禁止登陆',
-                        '99' => '待审核',
+                        '99' => '禁止登陆',
                     ]))
                 ),
                 (new Col('col-md-9'))->addItem(

@@ -67,20 +67,17 @@ class App implements AppInterface
     private static function getInstallSql(): string
     {
         return <<<'str'
-DROP TABLE IF EXISTS `prefix_ebcms_user_log`;
-CREATE TABLE `prefix_ebcms_user_log` (
+DROP TABLE IF EXISTS `prefix_ebcms_user_message`;
+CREATE TABLE `prefix_ebcms_user_message` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-    `type` varchar(24) NOT NULL DEFAULT '' COMMENT '类型',
     `user_id` int(10) unsigned NOT NULL DEFAULT '0',
-    `context` text,
-    `http_raw` text,
-    `ip` varchar(15) NOT NULL DEFAULT '' COMMENT 'ip',
-    `record_date` date DEFAULT '1970-01-01',
-    `record_time` int(10) unsigned NOT NULL DEFAULT '0',
+    `title` varchar(80) NOT NULL DEFAULT '' COMMENT '标题',
+    `body` text COMMENT '内容',
+    `send_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发送时间',
+    `is_read` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0未读 1已读',
+    `read_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '阅读时间',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `record_date` (`record_date`),
-    KEY `user_id` (`user_id`),
-    KEY `ip` (`ip`)
+    KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='会员日志表';
 DROP TABLE IF EXISTS `prefix_ebcms_user_user`;
 CREATE TABLE `prefix_ebcms_user_user` (
@@ -89,8 +86,9 @@ CREATE TABLE `prefix_ebcms_user_user` (
     `nickname` varchar(20) NOT NULL DEFAULT '' COMMENT '标题',
     `avatar` varchar(255) NOT NULL DEFAULT '',
     `introduction` varchar(255) NOT NULL DEFAULT '',
+    `score` int(10) unsigned NOT NULL COMMENT '积分',
     `coin` int(10) unsigned NOT NULL COMMENT '金币',
-    `state` tinyint(3) unsigned NOT NULL DEFAULT '0',
+    `state` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '0待审核 1正常 99黑名单',
     `salt` char(32) NOT NULL DEFAULT '',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `phone` (`phone`) USING BTREE,
@@ -108,7 +106,7 @@ str;
     private static function getUninstallSql(): string
     {
         return <<<'str'
-DROP TABLE IF EXISTS `prefix_ebcms_user_log`;
+DROP TABLE IF EXISTS `prefix_ebcms_user_message`;
 DROP TABLE IF EXISTS `prefix_ebcms_user_user`;
 str;
     }
