@@ -1,7 +1,7 @@
 <?php
 
-use Ebcms\Framework\Config;
-use Ebcms\Framework\Framework;
+use DiggPHP\Framework\Config;
+use DiggPHP\Framework\Framework;
 
 return function ($phone, $code): bool {
     try {

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Ebcms\UcenterAdmin\Http\Message;
 
 use App\Ebcms\Admin\Http\Common;
-use DigPHP\Database\Db;
-use DigPHP\Form\Builder;
-use DigPHP\Form\Component\Col;
-use DigPHP\Form\Field\Input;
-use DigPHP\Form\Component\Row;
-use DigPHP\Form\Field\Summernote;
-use DigPHP\Request\Request;
-use DigPHP\Router\Router;
+use DiggPHP\Database\Db;
+use DiggPHP\Form\Builder;
+use DiggPHP\Form\Component\Col;
+use DiggPHP\Form\Field\Input;
+use DiggPHP\Form\Component\Row;
+use DiggPHP\Form\Field\Summernote;
+use DiggPHP\Request\Request;
+use DiggPHP\Router\Router;
 
 class Create extends Common
 {

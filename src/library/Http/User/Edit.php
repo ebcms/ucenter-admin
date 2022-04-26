@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Ebcms\UcenterAdmin\Http\User;
 
 use App\Ebcms\Admin\Http\Common;
-use DigPHP\Database\Db;
-use DigPHP\Router\Router;
-use DigPHP\Form\Builder;
-use DigPHP\Form\Component\Col;
-use DigPHP\Form\Field\Cover;
-use DigPHP\Form\Field\Hidden;
-use DigPHP\Form\Field\Input;
-use DigPHP\Form\Field\Radio;
-use DigPHP\Form\Field\Textarea;
-use DigPHP\Form\Component\Row;
-use DigPHP\Request\Request;
+use DiggPHP\Database\Db;
+use DiggPHP\Router\Router;
+use DiggPHP\Form\Builder;
+use DiggPHP\Form\Component\Col;
+use DiggPHP\Form\Field\Cover;
+use DiggPHP\Form\Field\Hidden;
+use DiggPHP\Form\Field\Input;
+use DiggPHP\Form\Field\Radio;
+use DiggPHP\Form\Field\Textarea;
+use DiggPHP\Form\Component\Row;
+use DiggPHP\Request\Request;
 
 class Edit extends Common
 {
